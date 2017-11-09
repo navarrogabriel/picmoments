@@ -1,0 +1,105 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"  tools:context="com.unaj.gabbo.picmoments.LoginActivity"
+    >
+
+    <View
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backLogin"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/login"
+        android:textSize="70sp"
+        android:id="@+id/textLogin"
+        android:textColor="@color/whiteColor"
+        android:layout_marginTop="65dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textLogin"
+        android:text="@string/errorLogin"
+        android:id="@+id/errorLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:visibility="gone"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/textUser"
+        android:maxLines="1"
+        android:drawablePadding="10dp"
+        android:hint="@string/user"
+        android:textColorHint="@color/placeHolder"
+        android:textColor="@color/whiteColor"
+        android:textSize="20sp"
+        android:layout_below="@+id/textLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="47dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:drawablePadding="10dp"
+        android:maxLines="1"
+        android:hint="@string/password"
+        android:textSize="20sp"
+        android:textColorHint="@color/placeHolder"
+        android:textColor="@color/whiteColor"
+        android:id="@+id/textPass"
+        android:layout_below="@+id/textUser"
+        android:layout_alignLeft="@+id/textUser"
+        android:layout_alignStart="@+id/textUser"
+        android:layout_alignRight="@+id/textUser"
+        android:layout_alignEnd="@+id/textUser" />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_dark"
+        android:text="@string/signIn"
+        android:textSize="20sp"
+        android:id="@+id/btnsignin"
+        android:layout_below="@+id/textPass"
+        android:layout_marginTop="6dp"
+        android:layout_alignLeft="@+id/textPass"
+        android:layout_alignStart="@+id/textPass"
+        android:layout_alignRight="@+id/textPass"
+        android:layout_alignEnd="@+id/textPass" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="@string/signUp"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:id="@+id/btnreg"
+        android:textColor="@color/whiteColor"
+        android:layout_marginTop="22dp"
+        android:layout_below="@+id/btnsignin"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnreg"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:layout_marginTop="90dp"
+        android:text="@string/footer"
+        />
+
+</RelativeLayout>

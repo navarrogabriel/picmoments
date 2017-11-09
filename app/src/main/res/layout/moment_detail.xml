@@ -1,0 +1,87 @@
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools: context="com.unaj.gabbo.picmoments.MomentDetailFragment"
+    />
+
+
+
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_height="400dp"
+        android:id="@+id/photoDetail"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/deleteMoment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        app:layout_anchor="@+id/moment_detail_container"
+        app:layout_anchorGravity="top|end"
+        app:srcCompat="@android:drawable/ic_menu_delete"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="330dp"
+        android:layout_above="@+id/moment_detail"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/moment_detail"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/photoDetail"
+        android:textColor="@color/whiteColor"
+        android:textIsSelectable="true">
+    </TextView>
+
+    <TextView
+        android:id="@+id/moment_date"
+        style="?android:attr/textAppearanceLarge"
+        android:textColor="@color/whiteColor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/moment_detail"
+        android:layout_alignLeft="@+id/moment_detail"
+        android:layout_alignStart="@+id/moment_detail"
+        android:layout_alignRight="@+id/moment_detail"
+        android:layout_alignEnd="@+id/moment_detail"
+        android:padding="16dp"
+        android:textIsSelectable="true" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:layout_below="@+id/photoDetail"
+        android:layout_alignParentEnd="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/editMoment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_below="@+id/photoDetail"
+            android:layout_alignStart="@+id/seeMap" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/seeMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_dialog_map"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/photoDetail" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+

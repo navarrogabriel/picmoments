@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"  tools:context="com.unaj.gabbo.picmoments.SaveMomentsActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <View
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backLogin"
+        android:layout_alignParentTop="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/yourMoment"
+        android:textSize="50sp"
+        android:id="@+id/yourMoment"
+        android:textColor="@color/whiteColor"
+        android:layout_marginTop="85dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/cancelUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginTop="14dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:id="@+id/renderPhoto"
+        android:layout_marginTop="110dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/txtDescription"
+        android:layout_alignLeft="@id/renderPhoto"
+        android:layout_alignEnd="@id/renderPhoto"
+        android:layout_alignStart="@id/renderPhoto"
+        android:layout_alignRight="@id/renderPhoto"
+        android:layout_below="@id/renderPhoto"
+        android:hint="@string/description"
+        android:textColorHint="@color/placeHolder"
+        android:textColor="@color/whiteColor"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:text="@string/upload"
+        android:textSize="20sp"
+        android:id="@+id/btnupload"
+        android:layout_below="@+id/txtDescription"
+        android:layout_marginTop="6dp"
+        android:layout_alignLeft="@+id/txtDescription"
+        android:layout_alignStart="@+id/txtDescription"
+        android:layout_alignRight="@+id/txtDescription"
+        android:layout_alignEnd="@+id/txtDescription" />
+
+
+</RelativeLayout>

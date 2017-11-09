@@ -5,28 +5,29 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 import com.unaj.gabbo.picmoments.db.SQLiteDBHelper;
 import com.unaj.gabbo.picmoments.moment.Moment;
 import com.unaj.gabbo.picmoments.moment.MomentContent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,10 +58,9 @@ public class MomentListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moment_list);
 
-        SQLiteDBHelper dbHelper = new SQLiteDBHelper(this);
+        final SQLiteDBHelper dbHelper = new SQLiteDBHelper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
 
         final FloatingActionButton logout = (FloatingActionButton) findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -84,9 +84,29 @@ public class MomentListActivity extends AppCompatActivity {
             }
         });
 
-        View recyclerView = findViewById(R.id.moment_list);
+
+
+        final View recyclerView = findViewById(R.id.moment_list);
         assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView, dbHelper);
+
+        FloatingActionButton search = (FloatingActionButton) findViewById(R.id.searchButton);
+        final EditText tagFilter = (EditText) findViewById(R.id.tagFilter);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String filter = tagFilter.getText().toString();
+                if (filter.length() >0){
+                    setupRecyclerView((RecyclerView) recyclerView, dbHelper, filter);
+
+                }
+                else {
+                    Toast.makeText(MomentListActivity.this, ":(", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+        setupRecyclerView((RecyclerView) recyclerView, dbHelper, null);
 
         if (findViewById(R.id.moment_detail_container) != null) {
             // The detail container view will be present only in the
@@ -95,12 +115,23 @@ public class MomentListActivity extends AppCompatActivity {
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
+
+
+
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView, SQLiteDBHelper dbHelper) {
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView, SQLiteDBHelper dbHelper, String filter) {
+
         MomentContent momentContent = new MomentContent();
-        List <Moment> momentsFromDB = momentContent.getMomentsToList(dbHelper);
-        if (momentsFromDB!= null ) {
+        List <Moment> momentsFromDB = new ArrayList<Moment>();
+
+        if (filter!= null){
+            momentsFromDB = momentContent.getMomentsToListFilter(dbHelper, filter);
+        } else {
+            momentsFromDB = momentContent.getMomentsToList(dbHelper);
+        }
+
+        if (momentsFromDB != null ) {
             recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(momentsFromDB));
         }
         else{
@@ -160,8 +191,14 @@ public class MomentListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).getId());
-            holder.mContentView.setText(mValues.get(position).getDescription());
+            holder.mIdView.setText(mValues.get(position).getFormatDate());
+//            holder.mContentView.setText(mValues.get(position).getDescription());
+
+            byte[] imageAsByteArray = mValues.get(position).getImageAsBytes();
+            Bitmap imageAsBitmap = BitmapFactory.decodeByteArray(imageAsByteArray,0, imageAsByteArray.length);
+
+            holder.mImageView.setImageBitmap(imageAsBitmap);
+
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -194,19 +231,22 @@ public class MomentListActivity extends AppCompatActivity {
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
             public final TextView mIdView;
-            public final TextView mContentView;
+//            public final TextView mContentView;
+            public final ImageView mImageView;
             public Moment mItem;
 
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
+                mIdView = (TextView) view.findViewById(R.id.date);
+//                mContentView = (TextView) view.findViewById(R.id.content);
+                mImageView = (ImageView) view.findViewById(R.id.listPhoto);
             }
 
             @Override
             public String toString() {
-                return super.toString() + " '" + mContentView.getText() + "'";
+//                return super.toString() + " '" + mContentView.getText() + "'";
+                return null;
             }
         }
     }

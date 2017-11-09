@@ -16,5 +16,6 @@
     <string name="account">Create Account</string>
     <string name="succesLogin">After clicking the Register Button. You will be redirected to Login Screen</string>
     <string name="yourMoment">Your Moment</string>
-
+    <string name="filter">Filter</string>
+    <string name="search">Search!</string>
 </resources>

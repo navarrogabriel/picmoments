@@ -30,6 +30,7 @@ public class MomentContent {
 
 
     public List<Moment> getMomentsToList (SQLiteDBHelper dbHelper){
+       ITEMS.clear();
         momentsFromDB = getAllMoments (dbHelper);
         if (momentsFromDB!= null) {
             for (Moment momentToAdd : momentsFromDB) {
@@ -38,6 +39,51 @@ public class MomentContent {
             return ITEMS;
         }
         return null;
+    }
+
+    public List<Moment> getMomentsToListFilter (SQLiteDBHelper dbHelper, String filter){
+        ITEMS.clear();
+        momentsFromDB = getAllMomentsFilter (dbHelper, filter);
+        if (momentsFromDB!= null) {
+            for (Moment momentToAdd : momentsFromDB) {
+                addMoment(momentToAdd);
+            }
+            return ITEMS;
+        }
+        return null;
+    }
+
+    private ArrayList<Moment> getAllMomentsFilter(SQLiteDBHelper dbHelper, String filter) {
+        SQLiteDatabase db       =   dbHelper.getWritableDatabase();
+        String sql              =   "SELECT * FROM moment WHERE description LIKE '%"+'#'+filter+"%'";
+        Cursor cursor           =   db.rawQuery(sql, new String[] {});
+        ArrayList<Moment> moments = new ArrayList<Moment>();
+        Moment moment;
+        int id = -1;
+
+        if(cursor.moveToFirst()){
+            while (!cursor.isAfterLast()) {
+                byte[] imageAsBytes = cursor.getBlob(1);
+                String location = cursor.getString(2);
+                String description = cursor.getString(3);
+                String photoDate = cursor.getString(4);
+                id = id + 1;
+
+                moment = new Moment(String.valueOf(id), imageAsBytes, location, description, photoDate);
+                moments.add(moment);
+                cursor.moveToNext();
+            }
+        }
+        if (cursor != null && !cursor.isClosed()) {
+            cursor.close();
+        }
+        db.close();
+        if(cursor.getCount() == 0){
+            return null;
+        }
+
+        return moments;
+
     }
 
     private static void addMoment(Moment item) {

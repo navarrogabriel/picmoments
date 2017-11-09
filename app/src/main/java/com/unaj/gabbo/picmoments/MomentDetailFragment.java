@@ -82,7 +82,7 @@ public class MomentDetailFragment extends Fragment {
             public void onClick(View view) {
                 String coordenadas = mItem.getLocation();
                 Intent intent = new Intent(getActivity(), MapActivity.class);
-                intent.putExtra("location", mItem.getLocation());
+                intent.putExtra("location", coordenadas);
                 startActivity(intent);
             }
         });

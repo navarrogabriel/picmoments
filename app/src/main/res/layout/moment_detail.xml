@@ -28,15 +28,16 @@
         android:layout_above="@+id/moment_detail"
         android:layout_alignParentEnd="true" />
 
-    <TextView
+    <EditText
         android:id="@+id/moment_detail"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/photoDetail"
         android:textColor="@color/whiteColor"
+        android:inputType="text"
         android:textIsSelectable="true">
-    </TextView>
+    </EditText>
 
     <TextView
         android:id="@+id/moment_date"
@@ -71,6 +72,7 @@
             android:layout_below="@+id/photoDetail"
             android:layout_alignStart="@+id/seeMap" />
 
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/seeMap"
             android:layout_width="wrap_content"
@@ -82,6 +84,18 @@
             android:layout_alignEnd="@+id/photoDetail" />
 
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/saveMoment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:foregroundGravity="bottom"
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/photoDetail" />
 
 </RelativeLayout>
 

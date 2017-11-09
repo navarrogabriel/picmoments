@@ -1,6 +1,7 @@
 package com.unaj.gabbo.picmoments;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,13 +72,19 @@ public class MomentDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.moment_detail, container, false);
+        final View rootView = inflater.inflate(R.layout.moment_detail, container, false);
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
+
+            EditText moment_detailET = (EditText) rootView.findViewById(R.id.moment_detail);
+            moment_detailET.setFocusable(false);
+            moment_detailET.setFocusableInTouchMode(false);
+            moment_detailET.setClickable(false);
+
             byte[] imageAsByteArray = mItem.getImageAsBytes();
             Bitmap imageAsBitmap = BitmapFactory.decodeByteArray(imageAsByteArray,0, imageAsByteArray.length);
-            ((TextView) rootView.findViewById(R.id.moment_detail)).setText(mItem.getDescription());
+            moment_detailET.setText(mItem.getDescription());
             ((TextView) rootView.findViewById(R.id.moment_date)).setText(mItem.getFormatDate());
             ((ImageView) rootView.findViewById(R.id.photoDetail)).setImageBitmap(imageAsBitmap);
         }
@@ -89,6 +97,47 @@ public class MomentDetailFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), MapActivity.class);
                 intent.putExtra("location", coordenadas);
                 startActivity(intent);
+            }
+        });
+
+        final FloatingActionButton editDesc = (FloatingActionButton) rootView.findViewById(R.id.editMoment);
+        editDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText moment_detailET = (EditText) rootView.findViewById(R.id.moment_detail);
+                moment_detailET.setFocusable(true);
+                moment_detailET.setEnabled(true);
+                moment_detailET.setFocusableInTouchMode(true);
+                moment_detailET.setClickable(true);
+                rootView.findViewById(R.id.saveMoment).setVisibility(View.VISIBLE);
+                editDesc.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        final FloatingActionButton saveEditMoment = (FloatingActionButton) rootView.findViewById(R.id.saveMoment);
+        saveEditMoment.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                EditText newDescription = (EditText) rootView.findViewById(R.id.moment_detail);
+                String description = newDescription.getText().toString();
+                ContentValues values = new ContentValues();
+                values.put("description", description);
+                int id =Integer.parseInt( mItem.getId());
+                final SQLiteDBHelper dbHelper = new SQLiteDBHelper(getActivity());
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                int result = db.update("moment", values, "_ID="+""+id, null );
+
+                if  (result >0){
+                    Intent intent = new Intent(getActivity(), MomentListActivity.class);
+                    Toast.makeText(getActivity(), ":)", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+
+                } else {
+                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+
+                }
+
             }
         });
 

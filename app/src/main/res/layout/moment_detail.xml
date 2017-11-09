@@ -28,33 +28,62 @@
         android:layout_above="@+id/moment_detail"
         android:layout_alignParentEnd="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/descriptionLabel"
+        android:id="@+id/descriptionLabel"
+        style="?android:attr/textAppearanceLarge"
+        android:textColor="@color/whiteColor"
+        android:layout_below="@id/photoDetail"
+        android:layout_marginTop="10dp"
+        />
+
     <EditText
         android:id="@+id/moment_detail"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/photoDetail"
+        android:layout_below="@id/descriptionLabel"
         android:textColor="@color/whiteColor"
         android:inputType="text"
         android:textIsSelectable="true">
+        android:layout_alignLeft="@+id/descriptionLabel"
+        android:layout_alignStart="@+id/descriptionLabel"
+        android:layout_alignRight="@+id/descriptionLabel"
+        android:layout_alignEnd="@+id/descriptionLabel"
     </EditText>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date"
+        android:id="@+id/dateLabel"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_below="@id/moment_detail"
+        android:textColor="@color/whiteColor"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@+id/moment_detail"
+        android:layout_alignStart="@+id/moment_detail"
+        android:layout_alignRight="@+id/moment_detail"
+        android:layout_alignEnd="@+id/moment_detail"
+        />
     <TextView
         android:id="@+id/moment_date"
         style="?android:attr/textAppearanceLarge"
         android:textColor="@color/whiteColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/moment_detail"
-        android:layout_alignLeft="@+id/moment_detail"
-        android:layout_alignStart="@+id/moment_detail"
-        android:layout_alignRight="@+id/moment_detail"
-        android:layout_alignEnd="@+id/moment_detail"
+        android:layout_below="@id/dateLabel"
+        android:layout_alignLeft="@+id/dateLabel"
+        android:layout_alignStart="@+id/dateLabel"
+        android:layout_alignRight="@+id/dateLabel"
+        android:layout_alignEnd="@+id/dateLabel"
         android:padding="16dp"
         android:textIsSelectable="true" />
 
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -72,30 +101,33 @@
             android:layout_below="@+id/photoDetail"
             android:layout_alignStart="@+id/seeMap" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/saveMoment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_save"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:foregroundGravity="bottom"
+            android:visibility="invisible"
+            android:layout_above="@+id/descriptionLabel"
+            android:layout_alignStart="@+id/photoDetail" />
+
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/seeMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
             app:srcCompat="@android:drawable/ic_dialog_map"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
             android:layout_alignParentBottom="true"
             android:layout_alignEnd="@+id/photoDetail" />
 
-    </LinearLayout>
+    </FrameLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/saveMoment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_save"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:foregroundGravity="bottom"
-        android:visibility="invisible"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/photoDetail" />
+
 
 </RelativeLayout>
 

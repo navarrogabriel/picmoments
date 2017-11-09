@@ -93,6 +93,7 @@
         android:id="@+id/txtmobile_reg"
         android:hint="@string/number"
         android:maxLines="1"
+        android:inputType="number"
         android:textColor="@color/whiteColor"
         android:textColorHint="@color/placeHolder"
         android:drawablePadding="10dp"

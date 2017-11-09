@@ -49,7 +49,7 @@ public class MomentListActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    private LocationManager locationManager = null;
+    private LocationManager locationManager;
     SQLiteDBHelper dbHelper;
 
 

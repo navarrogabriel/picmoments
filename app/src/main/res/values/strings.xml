@@ -18,4 +18,6 @@
     <string name="yourMoment">Your Moment</string>
     <string name="filter">Filter</string>
     <string name="search">Search!</string>
+    <string name="date"><u>Date</u></string>
+    <string name="descriptionLabel"><u>Description</u></string>
 </resources>

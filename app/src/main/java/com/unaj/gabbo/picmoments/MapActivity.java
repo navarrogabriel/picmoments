@@ -29,8 +29,7 @@ public class MapActivity extends  FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        Intent intent = getIntent();
-        String coordenadas = intent.getStringExtra("location");
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -39,9 +38,28 @@ public class MapActivity extends  FragmentActivity implements OnMapReadyCallback
 
     public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
+            Intent intent = getIntent();
+            String coordenadas = intent.getStringExtra("location");
+            String latitudeString = getStringLatitude (coordenadas);
+            String longString = getStringLong (coordenadas);
 
-            LatLng sydney = new LatLng(0, 0);
-            mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            double lat = Double.parseDouble(latitudeString);
+            double lon = Double.parseDouble(longString);
+
+            LatLng position = new LatLng(lat, lon);
+            mMap.addMarker(new MarkerOptions().position(position).title("Moment"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 6.0f));
+    }
+
+    private String getStringLong(String coordenadas) {
+        int index = coordenadas.indexOf(",");
+        String toReturn = coordenadas.substring(index+1, coordenadas.length());
+        return toReturn;
+    }
+
+    private String getStringLatitude(String coordenadas) {
+        int index = coordenadas.indexOf(",");
+        String toReturn = coordenadas.substring(0, index);
+        return toReturn;
     }
 }

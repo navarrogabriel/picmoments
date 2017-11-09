@@ -11,13 +11,24 @@
         android:layout_marginTop="20dp">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date"
+            android:id="@+id/dateLabel"
+            style="?android:attr/textAppearanceLarge"
+            android:textColor="@color/whiteColor"
+            android:layout_marginTop="15dp"
+
+            />
+
+        <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:textColor="@color/whiteColor"
             android:textSize="20sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:textAppearance="?attr/textAppearanceListItem" />
 
         <ImageView

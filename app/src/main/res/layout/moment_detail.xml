@@ -24,7 +24,7 @@
         app:srcCompat="@android:drawable/ic_menu_delete"
         android:layout_marginLeft="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
-        android:layout_marginBottom="350dp"
+        android:layout_marginBottom="320dp"
         android:layout_above="@+id/moment_detail"
         android:layout_alignParentEnd="true" />
 

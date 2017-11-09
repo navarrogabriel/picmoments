@@ -2,6 +2,8 @@ package com.unaj.gabbo.picmoments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
@@ -15,6 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.unaj.gabbo.picmoments.db.SQLiteDBHelper;
 import com.unaj.gabbo.picmoments.moment.*;
 
 /**
@@ -84,6 +89,31 @@ public class MomentDetailFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), MapActivity.class);
                 intent.putExtra("location", coordenadas);
                 startActivity(intent);
+            }
+        });
+
+        FloatingActionButton deleteMoment = (FloatingActionButton) rootView.findViewById(R.id.deleteMoment);
+        deleteMoment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int id =Integer.parseInt( mItem.getId());
+                final SQLiteDBHelper dbHelper = new SQLiteDBHelper(getActivity());
+                SQLiteDatabase db       =   dbHelper.getWritableDatabase();
+                int result = db.delete("moment", "_ID="+""+id, null);
+//                String sql              =   "DELECT  FROM moment WHERE _ID="+id;
+//                Cursor cursor           =   db.rawQuery(sql, new String[] {});
+
+                if  (result >0){
+                    Intent intent = new Intent(getActivity(), MomentListActivity.class);
+                    Toast.makeText(getActivity(), ":)", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+
+                } else {
+                    Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+
+                }
+
             }
         });
 

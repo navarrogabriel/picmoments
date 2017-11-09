@@ -59,17 +59,18 @@ public class MomentContent {
         Cursor cursor           =   db.rawQuery(sql, new String[] {});
         ArrayList<Moment> moments = new ArrayList<Moment>();
         Moment moment;
-        int id = -1;
+//        int id = -1;
 
         if(cursor.moveToFirst()){
             while (!cursor.isAfterLast()) {
+                int _id = cursor.getShort(0);
                 byte[] imageAsBytes = cursor.getBlob(1);
                 String location = cursor.getString(2);
                 String description = cursor.getString(3);
                 String photoDate = cursor.getString(4);
-                id = id + 1;
+//                id = id + 1;
 
-                moment = new Moment(String.valueOf(id), imageAsBytes, location, description, photoDate);
+                moment = new Moment(String.valueOf(_id), imageAsBytes, location, description, photoDate);
                 moments.add(moment);
                 cursor.moveToNext();
             }
@@ -112,17 +113,18 @@ public class MomentContent {
         Cursor cursor           =   db.rawQuery(sql, new String[] {});
         ArrayList<Moment> moments = new ArrayList<Moment>();
         Moment moment;
-        int id = -1;
+//        int id = -1;
 
         if(cursor.moveToFirst()){
             while (!cursor.isAfterLast()) {
+                int _id = cursor.getInt(0);
                 byte[] imageAsBytes = cursor.getBlob(1);
                 String location = cursor.getString(2);
                 String description = cursor.getString(3);
                 String photoDate = cursor.getString(4);
-                id = id + 1;
+//                id = id + 1;
 
-                moment = new Moment(String.valueOf(id), imageAsBytes, location, description, photoDate);
+                moment = new Moment(String.valueOf(_id), imageAsBytes, location, description, photoDate);
                 moments.add(moment);
                 cursor.moveToNext();
                 }

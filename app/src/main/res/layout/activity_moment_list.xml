@@ -57,7 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        android:src="@drawable/logout"
+         />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/upload"

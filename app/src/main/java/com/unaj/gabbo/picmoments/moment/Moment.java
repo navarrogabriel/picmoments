@@ -13,15 +13,25 @@ public class Moment {
     private String location;
     private String description;
     private String formatDate;
+    private int userId;
 
 
-    public Moment(String id, byte[] imageAsBytes, String location, String description, String date) {
+    public Moment(String id, byte[] imageAsBytes, String location, String description, String date, int userId) {
         this.id = id;
         this.imageAsBytes = imageAsBytes;
         this.location = location;
         this.description = description;
         this.formatDate = date;
+        this.userId = userId;
 
+    }
+
+    public int getUserId (){
+        return this.userId;
+    }
+
+    public void setUserId(int userId){
+        this.userId = userId;
     }
 
     public String getId (){

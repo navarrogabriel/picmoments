@@ -38,10 +38,10 @@ public class LoginActivity extends AppCompatActivity {
        /* ActionBar ab = getSupportActionBar();
         ab.hide();*/
        sharedPreferences = getSharedPreferences(LOGUEADO, Context.MODE_PRIVATE);
-        String logueado = sharedPreferences.getString(LOGUEADO, "");
-       if (logueado.length()>0 || logueado!=""){
+        int logueado = sharedPreferences.getInt(LOGUEADO, -1);
+       if (logueado>0){
            Intent intent = new Intent(LoginActivity.this,MomentListActivity.class);
-           intent.putExtra("user",logueado);
+           intent.putExtra("userid",logueado);
            startActivity(intent);
        }
 
@@ -68,19 +68,19 @@ public class LoginActivity extends AppCompatActivity {
                     if(cursor.getCount() > 0) {
 
                         cursor.moveToFirst();
-                        //Retrieving User FullName and Email after successfull login and passing to LoginSucessActivity
+                        int id = cursor.getInt(0);
                         String _fname = cursor.getString(cursor.getColumnIndex("fullName"));
                         String _user= cursor.getString(cursor.getColumnIndex("user"));
 
                         //Agrego nueva preference
                         editor = sharedPreferences.edit();
-                        editor.putString(LOGUEADO, _user);
+                        editor.putInt(LOGUEADO, id);
                         editor.commit();
 
                         Toast.makeText(LoginActivity.this, ":)", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this,MomentListActivity.class);
                         intent.putExtra("fullname",_fname);
-                        intent.putExtra("user",_user);
+                        intent.putExtra("userid",id);
                         startActivity(intent);
 
                         //Se elimina la actividad.

@@ -42,6 +42,7 @@ public class MomentDetailFragment extends Fragment {
      */
     private Moment mItem;
 
+    private int userid;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -58,7 +59,8 @@ public class MomentDetailFragment extends Fragment {
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
             mItem = MomentContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
+            int userid = getArguments().getInt("userid");
+            setUserId (userid);
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
@@ -150,8 +152,6 @@ public class MomentDetailFragment extends Fragment {
                 final SQLiteDBHelper dbHelper = new SQLiteDBHelper(getActivity());
                 SQLiteDatabase db       =   dbHelper.getWritableDatabase();
                 int result = db.delete("moment", "_ID="+""+id, null);
-//                String sql              =   "DELECT  FROM moment WHERE _ID="+id;
-//                Cursor cursor           =   db.rawQuery(sql, new String[] {});
 
                 if  (result >0){
                     Intent intent = new Intent(getActivity(), MomentListActivity.class);
@@ -166,8 +166,17 @@ public class MomentDetailFragment extends Fragment {
             }
         });
 
+        int itemId = mItem.getUserId();
+        if (itemId != userid){
+            deleteMoment.setVisibility(View.INVISIBLE);
+            editDesc.setVisibility(View.INVISIBLE);
+        }
+
 
         return rootView;
     }
 
+    public void setUserId(int userId) {
+        this.userid = userId;
+    }
 }

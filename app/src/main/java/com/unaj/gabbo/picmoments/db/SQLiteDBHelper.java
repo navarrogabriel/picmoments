@@ -21,7 +21,7 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
             "Create table usuarios (_ID integer primary key autoincrement, fullName text, user text, password text, mobile text);";
 
     private static final String CREATE_TABLE_QUERY_MOMENT =
-            "Create table moment (_ID integer primary key autoincrement, image BLOB, location text, description text, date text);";
+            "Create table moment (_ID integer primary key autoincrement, image BLOB, location text, description text, date text, userid integer);";
 
     public SQLiteDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

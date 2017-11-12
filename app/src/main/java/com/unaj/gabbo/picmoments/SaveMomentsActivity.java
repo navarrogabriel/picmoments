@@ -45,6 +45,7 @@ public class SaveMomentsActivity extends AppCompatActivity {
 
         final String location = intent.getStringExtra("location");
         final Bitmap imageAsBitmap =(Bitmap) intent.getParcelableExtra("imageBitMap");
+        final int id = intent.getIntExtra("userid", -1);
 //        Bitmap reSizeImage = BitmapFactory.decodeByteArray(imageAsBitmap, 0, imageAsBitmap)
         if (location != null || location.length()>0){
             imageView.setImageBitmap(imageAsBitmap);
@@ -53,7 +54,7 @@ public class SaveMomentsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     String description = descriptionEdit.getText().toString();
-                    insertMoment(imageAsBitmap, location, description);
+                    insertMoment(imageAsBitmap, location, description, id);
 
                 }
             });
@@ -63,7 +64,7 @@ public class SaveMomentsActivity extends AppCompatActivity {
         }
     }
 
-    private void insertMoment (Bitmap imageAsBitmap, String location, String description){
+    private void insertMoment (Bitmap imageAsBitmap, String location, String description, int id){
         dbHelper = new SQLiteDBHelper(this);
         db = dbHelper.getWritableDatabase();
         Date now = new Date();
@@ -76,8 +77,9 @@ public class SaveMomentsActivity extends AppCompatActivity {
         values.put("location", location);
         values.put ("description", description);
         values.put ("date", formatDate);
+        values.put ("userid", id);
 
-        long id = db.insert("moment", null, values);
+        long result = db.insert("moment", null, values);
         Toast.makeText(SaveMomentsActivity.this, ":D", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MomentListActivity.class);
         startActivity(intent);

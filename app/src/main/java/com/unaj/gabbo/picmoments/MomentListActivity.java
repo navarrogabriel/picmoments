@@ -51,7 +51,7 @@ public class MomentListActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private LocationManager locationManager;
     SQLiteDBHelper dbHelper;
-
+    private int  id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +62,17 @@ public class MomentListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Intent intent = getIntent();
+        id = intent.getIntExtra("userid", -1);
+
+
         final FloatingActionButton logout = (FloatingActionButton) findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sharedPreferences = getSharedPreferences(LOGUEADO, Context.MODE_PRIVATE);
                 editor = sharedPreferences.edit();
-                editor.putString(LOGUEADO, "");
+                editor.putInt(LOGUEADO, -1);
                 editor.commit();
 
                 Intent intent = new Intent(MomentListActivity.this,LoginActivity.class);
@@ -80,7 +84,7 @@ public class MomentListActivity extends AppCompatActivity {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takePicture();
+                takePicture(id);
             }
         });
 
@@ -139,8 +143,9 @@ public class MomentListActivity extends AppCompatActivity {
         }
     }
 
-    private void takePicture() {
+    private void takePicture(int id) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent.putExtra("userid", id);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
@@ -148,13 +153,16 @@ public class MomentListActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             String currentLocation = getLocation();
 
+
             Intent intent = new Intent(MomentListActivity.this, SaveMomentsActivity.class);
             intent.putExtra("imageBitMap", imageBitmap);
             intent.putExtra ("location", currentLocation);
+            intent.putExtra ("userid", getIdToSaveMomment());
             startActivity(intent);
         }
     }
@@ -214,7 +222,7 @@ public class MomentListActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, MomentDetailActivity.class);
-//                        intent.putExtra("coordenadas")
+                        intent.putExtra("userid", getIdToSaveMomment());
                         intent.putExtra(MomentDetailFragment.ARG_ITEM_ID, holder.mItem.getId());
 
                         context.startActivity(intent);
@@ -249,5 +257,9 @@ public class MomentListActivity extends AppCompatActivity {
                 return null;
             }
         }
+    }
+
+    private int getIdToSaveMomment (){
+        return this.id;
     }
 }

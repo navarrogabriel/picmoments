@@ -25,24 +25,8 @@ public class MomentDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_moment_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton deleteMoment = (FloatingActionButton) findViewById(R.id.deleteMoment);
-//        deleteMoment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
-//        FloatingActionButton seeMap = (FloatingActionButton) findViewById(R.id.seeMap);
-//        seeMap.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        Intent intent = getIntent();
+        int userid = intent.getIntExtra("userid", -1);
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -65,6 +49,7 @@ public class MomentDetailActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
             arguments.putString(MomentDetailFragment.ARG_ITEM_ID,
                     getIntent().getStringExtra(MomentDetailFragment.ARG_ITEM_ID));
+            arguments.putInt("userid",userid);
             MomentDetailFragment fragment = new MomentDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

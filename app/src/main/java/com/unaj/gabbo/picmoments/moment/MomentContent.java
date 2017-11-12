@@ -68,9 +68,10 @@ public class MomentContent {
                 String location = cursor.getString(2);
                 String description = cursor.getString(3);
                 String photoDate = cursor.getString(4);
+                int userId = cursor.getInt(5);
 //                id = id + 1;
 
-                moment = new Moment(String.valueOf(_id), imageAsBytes, location, description, photoDate);
+                moment = new Moment(String.valueOf(_id), imageAsBytes, location, description, photoDate, userId);
                 moments.add(moment);
                 cursor.moveToNext();
             }
@@ -122,9 +123,10 @@ public class MomentContent {
                 String location = cursor.getString(2);
                 String description = cursor.getString(3);
                 String photoDate = cursor.getString(4);
+                int userId = cursor.getInt(5);
 //                id = id + 1;
 
-                moment = new Moment(String.valueOf(_id), imageAsBytes, location, description, photoDate);
+                moment = new Moment(String.valueOf(_id), imageAsBytes, location, description, photoDate, userId);
                 moments.add(moment);
                 cursor.moveToNext();
                 }

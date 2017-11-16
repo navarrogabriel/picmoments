@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Pic Moments</string>
+    <string name="title_moment_detail">Moment Detalle</string>
+    <string name="user">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Login ;)</string>
+    <string name="signUp"><u>Regístrate</u></string>
+    <string name="signIn">INGRESA</string>
+    <string name="errorLogin">Usuario o contraseña incorrectos</string>
+    <string name="footer">Gnavarro Software</string>
+    <string name="fullName">Nombre Completo</string>
+    <string name="register">Registrarse</string>
+    <string name="number">Número</string>
+    <string name="upload">Subir</string>
+    <string name="description">Descripción</string>
+    <string name="account">Crear Cuenta</string>
+    <string name="succesLogin">Luego de registrarte, serás redirigido a la pantalla de Login.</string>
+    <string name="yourMoment">Tu Moment</string>
+    <string name="filter">Filtros</string>
+    <string name="search">Buscar!</string>
+    <string name="date"><u>Fecha</u></string>
+    <string name="descriptionLabel"><u>Descripción</u></string>
+</resources>

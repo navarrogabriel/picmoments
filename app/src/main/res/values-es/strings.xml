@@ -20,4 +20,8 @@
     <string name="search">Buscar!</string>
     <string name="date"><u>Fecha</u></string>
     <string name="descriptionLabel"><u>Descripción</u></string>
+    <string name="language">Manten presionado para seleccionar idioma!</string>
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+    <string name="italian">Italian</string>
 </resources>

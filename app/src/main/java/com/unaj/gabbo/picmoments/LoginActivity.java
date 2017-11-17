@@ -3,12 +3,25 @@ package com.unaj.gabbo.picmoments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
+import java.util.Locale;
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.unaj.gabbo.picmoments.db.SQLiteDBHelper;
+
+import java.util.Locale;
 
 /**
  * Created by Gabbo on 28/10/2017.
@@ -37,13 +52,13 @@ public class LoginActivity extends AppCompatActivity {
         //To hide AppBar for fullscreen.
        /* ActionBar ab = getSupportActionBar();
         ab.hide();*/
-       sharedPreferences = getSharedPreferences(LOGUEADO, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(LOGUEADO, Context.MODE_PRIVATE);
         int logueado = sharedPreferences.getInt(LOGUEADO, -1);
-       if (logueado>0){
-           Intent intent = new Intent(LoginActivity.this,MomentListActivity.class);
-           intent.putExtra("userid",logueado);
-           startActivity(intent);
-       }
+        if (logueado > 0) {
+            Intent intent = new Intent(LoginActivity.this, MomentListActivity.class);
+            intent.putExtra("userid", logueado);
+            startActivity(intent);
+        }
 
         //Referencing UserEmail, Password EditText and TextView for SignUp Now
         final EditText _textUser = (EditText) findViewById(R.id.textUser);
@@ -63,14 +78,14 @@ public class LoginActivity extends AppCompatActivity {
                 String user = _textUser.getText().toString();
                 String pass = _textPass.getText().toString();
 
-                cursor = db.rawQuery("SELECT * FROM usuarios WHERE user=? AND password=?",new String[] {user,pass});
+                cursor = db.rawQuery("SELECT * FROM usuarios WHERE user=? AND password=?", new String[]{user, pass});
                 if (cursor != null) {
-                    if(cursor.getCount() > 0) {
+                    if (cursor.getCount() > 0) {
 
                         cursor.moveToFirst();
                         int id = cursor.getInt(0);
                         String _fname = cursor.getString(cursor.getColumnIndex("fullName"));
-                        String _user= cursor.getString(cursor.getColumnIndex("user"));
+                        String _user = cursor.getString(cursor.getColumnIndex("user"));
 
                         //Agrego nueva preference
                         editor = sharedPreferences.edit();
@@ -78,15 +93,14 @@ public class LoginActivity extends AppCompatActivity {
                         editor.commit();
 
                         Toast.makeText(LoginActivity.this, ":)", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this,MomentListActivity.class);
-                        intent.putExtra("fullname",_fname);
-                        intent.putExtra("userid",id);
+                        Intent intent = new Intent(LoginActivity.this, MomentListActivity.class);
+                        intent.putExtra("fullname", _fname);
+                        intent.putExtra("userid", id);
                         startActivity(intent);
 
                         //Se elimina la actividad.
                         finish();
-                    }
-                    else {
+                    } else {
 
                         View errorLogin = (View) findViewById(R.id.errorLogin);
                         errorLogin.setVisibility(View.VISIBLE);
@@ -101,10 +115,56 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
 
+
+        View lenguaje = findViewById(R.id.selectLanguage);
+        registerForContextMenu(lenguaje);
+        lenguaje.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                return false;
+            }
+        });
     }
+
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, LoginActivity.class);
+        startActivity(refresh);
+        finish();
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.language_context_menu, menu);
+    }
+
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.spanish:
+                setLocale("ES");
+                break;
+            case R.id.italian:
+                setLocale("IT");
+                break;
+            case R.id.english:
+                setLocale("EN");
+                break;
+        }
+        return true;
+    }
+
 }

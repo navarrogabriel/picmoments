@@ -20,4 +20,9 @@
     <string name="search">Search!</string>
     <string name="date"><u>Date</u></string>
     <string name="descriptionLabel"><u>Description</u></string>
+    <string name="language"><u><b>Press and hold to select language!</b></u></string>
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+    <string name="italian">Italian</string>
+
 </resources>

@@ -126,11 +126,11 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        View lenguaje = findViewById(R.id.selectLanguage);
-        registerForContextMenu(lenguaje);
+        final View lenguaje = findViewById(R.id.selectLanguage);
         lenguaje.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                registerForContextMenu(lenguaje);
 
                 return false;
             }

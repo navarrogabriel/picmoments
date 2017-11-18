@@ -1,5 +1,7 @@
 package com.unaj.gabbo.picmoments;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +18,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.support.v7.app.NotificationCompat;
 import android.util.DisplayMetrics;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -44,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     final static String LOGUEADO = "logueado";
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    android.support.v4.app.NotificationCompat.Builder mBuilder;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,9 +145,11 @@ public class LoginActivity extends AppCompatActivity {
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
         Intent refresh = new Intent(this, LoginActivity.class);
+        createNotification();
         startActivity(refresh);
         finish();
     }
+
 
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
@@ -165,6 +172,24 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    private void createNotification() {
+
+        NotificationManager mNotifyMgr =(NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
+        int icono = R.drawable.language;
+        Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(LoginActivity.this, 0,intent, 0);
+        mBuilder = new NotificationCompat.Builder(getApplicationContext()).
+                setContentIntent(pendingIntent)
+                .setSmallIcon(icono)
+                .setContentTitle(getResources().getString(R.string.languageChange))
+                .setContentText(getResources().getString(R.string.languageChange))
+                .setVibrate(new long[] {100, 250, 100, 500})
+                .setAutoCancel(true);
+
+        mNotifyMgr.notify(1, mBuilder.build());
+
     }
 
 }
